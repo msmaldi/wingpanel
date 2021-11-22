@@ -23,11 +23,14 @@ public class Wingpanel.Widgets.Panel : Gtk.EventBox {
     private IndicatorMenuBar right_menubar;
     private Gtk.MenuBar left_menubar;
     private Gtk.MenuBar center_menubar;
+    private Gtk.Box     right_box;
 
     private unowned Gtk.StyleContext style_context;
     private Gtk.CssProvider? style_provider = null;
 
     private static Gtk.CssProvider resource_provider;
+    
+    private Gtk.Grid na_grid = null;
 
     public Panel (Services.PopoverManager popover_manager) {
         Object (popover_manager : popover_manager);
@@ -60,11 +63,25 @@ public class Wingpanel.Widgets.Panel : Gtk.EventBox {
             halign = Gtk.Align.END
         };
         right_menubar.get_style_context ().add_provider (resource_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-
+        
+        right_box = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 6) {
+            hexpand = false,
+            halign = Gtk.Align.END
+        };
+        
+        na_grid = Gtkx11Tray.get_systray(Gtk.Orientation.HORIZONTAL);
+        na_grid.hexpand = false;
+        na_grid.halign = Gtk.Align.END;
+        na_grid.column_spacing = 15;
+        
+        right_box.add (na_grid);
+        right_box.add (right_menubar);
+        
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+                
         box.pack_start (left_menubar);
         box.set_center_widget (center_menubar);
-        box.pack_end (right_menubar);
+        box.pack_end (right_box);
 
         add (box);
 
@@ -260,10 +277,10 @@ public class Wingpanel.Widgets.Panel : Gtk.EventBox {
                 indicator_entry.set_transition_type (Gtk.RevealerTransitionType.SLIDE_RIGHT);
                 left_menubar.add (indicator_entry);
                 break;
-            case Indicator.DATETIME:
-                indicator_entry.set_transition_type (Gtk.RevealerTransitionType.SLIDE_DOWN);
-                center_menubar.add (indicator_entry);
-                break;
+            //case Indicator.DATETIME:
+            //    indicator_entry.set_transition_type (Gtk.RevealerTransitionType.SLIDE_DOWN);
+            //    center_menubar.add (indicator_entry);
+            //    break;
             default:
                 indicator_entry.set_transition_type (Gtk.RevealerTransitionType.SLIDE_LEFT);
                 right_menubar.insert_sorted (indicator_entry);

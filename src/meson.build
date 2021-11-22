@@ -14,6 +14,7 @@ wingpanel_files = files(
 )
 
 wingpanel_deps = [
+    lib_na_tray_dependency,
     libwingpanel_dep,
     granite_dep,
     gdk_x11_dep
@@ -23,5 +24,9 @@ executable(meson.project_name(),
     css_gresource,
     wingpanel_files,
     dependencies: wingpanel_deps,
-    install: true
+    install: true,
+    vala_args: [
+        '--vapidir=' + meson.source_root() + '/vapi/',
+        '--pkg=gtk_x11tray'
+      ]
 )

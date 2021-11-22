@@ -6,6 +6,7 @@ project(
 
 add_project_arguments([
         '--vapidir=' + join_paths(meson.source_root(), 'vapi'),
+        '--pkg=gtk_x11tray'
     ],
     language: 'vala',
 )
@@ -31,6 +32,10 @@ gdk_x11_dep = dependency('gdk-x11-3.0')
 gtk_dep = dependency('gtk+-3.0', version: '>=3.10')
 gee_dep = dependency('gee-0.8')
 granite_dep = dependency('granite', version: '>=5.4.0')
+
+na_tray = subproject('na-tray')
+
+lib_na_tray_dependency = na_tray.get_variable('lib_na_tray_dependency')
 
 subdir('data')
 subdir('lib')

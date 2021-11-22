@@ -43,8 +43,9 @@ public class Wingpanel.Services.IndicatorSorter : Object {
         indicator_order[Indicator.PRINTER] = 9;
         indicator_order[Indicator.SYNC] = 10;
         indicator_order[Indicator.POWER] = 11;
-        indicator_order[Indicator.MESSAGES] = 12;
-        indicator_order[Indicator.SESSION] = 13;
+        indicator_order[Indicator.DATETIME] = 12;
+        indicator_order[Indicator.MESSAGES] = 13;
+        indicator_order[Indicator.SESSION] = 14;
     }
 
     public int compare_func (Wingpanel.Widgets.IndicatorEntry? a, Wingpanel.Widgets.IndicatorEntry? b) {
